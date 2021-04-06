@@ -13,17 +13,13 @@ lazy val root = (project in file(".")).settings(
     "org.typelevel" %% "cats-effect-std" % "3.0.1"$if(scala3.truthy)$$else$,
     // better monadic for compiler plugin as suggested by documentation
     compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1")$endif$$if(testlib-use-cats-effect-testing-specs2.truthy)$,
-
-    "org.typelevel" %% "cats-effect-testing-specs2" % "1.0.0" % Test$else$
-
-    $endif$$if(testlib-use-munit-cats-effect-3.truthy)$,
+    "org.typelevel" %% "cats-effect-testing-specs2" % "1.0.0" % Test$else$$endif$$if(testlib-use-munit-cats-effect-3.truthy)$,
     "org.typelevel" %% "munit-cats-effect-3" % "1.0.0" % Test$else$$endif$$if(testlib-use-weaver-test.truthy)$,
-    "com.disneystreaming" %% "weaver-framework" % "0.7.0-M7" % Test$else$$endif$
+    "com.disneystreaming" %% "weaver-framework" % "0.7.0" % Test$else$$endif$
 
   )$if(testlib-use-weaver-test.truthy)$,
-
   testFrameworks ++= Seq(
     new TestFramework("weaver.framework.TestFramework")
-  )
+  )$else$$endif$
 
 )
