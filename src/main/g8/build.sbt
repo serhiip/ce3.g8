@@ -20,13 +20,10 @@ lazy val root = (project in file(".")).settings(
     "org.typelevel" %% "munit-cats-effect-3" % "1.0.0" % Test$else$$endif$$if(testlib-use-weaver-test.truthy)$,
     "com.disneystreaming" %% "weaver-framework" % "0.7.0-M7" % Test$else$$endif$
 
-  )$if(testlib-use-munit-cats-effect-3.truthy || testlib-use-weaver-test.truthy)$,
+  )$if(testlib-use-weaver-test.truthy)$,
 
-  testFrameworks ++= Seq($if(testlib-use-munit-cats-effect-3.truthy)$
-    new TestFramework("munit.Framework")$else$$endif$$if(testlib-use-weaver-test.truthy && testlib-use-munit-cats-effect-3.truthy)$,$else$$endif$
-    $if(testlib-use-weaver-test.truthy)$
-    new TestFramework("weaver.framework.TestFramework")$else$$endif$
-
-  )$else$$endif$
+  testFrameworks ++= Seq(
+    new TestFramework("weaver.framework.TestFramework")
+  )
 
 )
